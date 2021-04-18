@@ -1,7 +1,7 @@
 class ApiRequest {
   final String url;
   final RequestType type;
-  final Map<String, dynamic>? headers;
+  final Map<String, String>? headers;
   final Map<String, dynamic>? body;
 
   ApiRequest(
@@ -16,7 +16,7 @@ class ApiRequest {
   }
 
   ApiRequest copyWith(
-      {Map<String, dynamic>? headers,
+      {Map<String, String>? headers,
       Map<String, dynamic>? body,
       RequestType? type}) {
     return ApiRequest(

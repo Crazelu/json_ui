@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:json_ui/src/parsers/ui/json_flutter_ui.dart';
+import 'package:json_ui/src/utils/locator.dart';
+import 'package:json_ui/src/utils/method_channel.dart';
 
 class JsonUIDialog extends StatelessWidget {
   final JsonFlutterUI parsedJsonUI;
@@ -7,8 +9,8 @@ class JsonUIDialog extends StatelessWidget {
   const JsonUIDialog({Key? key, required this.parsedJsonUI, required this.size})
       : super(key: key);
 
-  void dismiss(BuildContext context) {
-    Navigator.of(context).pop();
+  void dismiss() {
+    locator<JsonMethodChannel>().dismiss();
   }
 
   @override
@@ -32,7 +34,7 @@ class JsonUIDialog extends StatelessWidget {
                     color: parsedJsonUI.dismissIconColor,
                   ),
                   onPressed: () {
-                    dismiss(context);
+                    dismiss();
                   }),
           ],
         ),
