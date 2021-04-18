@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:json_ui/src/constants/constants.dart';
 import 'package:json_ui/src/parsers/api/request.dart';
 import 'package:json_ui/src/utils/json_ui_utils.dart';
+import 'package:json_ui/src/utils/locator.dart';
 import 'package:json_ui/src/utils/method_channel.dart';
 
 class JsonButton {
@@ -77,7 +78,7 @@ class JsonButton {
                 MaterialStateProperty.resolveWith((states) => splashColor),
             shape: MaterialStateProperty.resolveWith((states) => shape)),
         onPressed: () {
-          JsonMethodChannel().invokeMethod(methodName, params: requestParams);
+          locator<JsonMethodChannel>().invokeMethod(methodName, params: requestParams);
         },
         child: child ?? Text(text));
   }

@@ -41,8 +41,9 @@ class JsonUI {
           locator<JsonMethodChannel>().registerDismissListener(() {
             Navigator.of(context!).pop();
           });
-          Navigator.of(context!).push(CupertinoPageRoute(
-              builder: (context) =>
+          Navigator.of(context!).push(PageRouteBuilder(
+              opaque: false,
+              pageBuilder: (context, primary, secondary) =>
                   JsonUIDialogManager(parsedJsonUI: parsedJsonUI)));
         }
       });

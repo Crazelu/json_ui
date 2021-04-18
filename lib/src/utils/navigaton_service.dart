@@ -11,8 +11,10 @@ class NavigationService {
   }
 
   Object? push(JsonFlutterUI parsedJsonUI) async {
-    return await key.currentState?.push(CupertinoPageRoute(
-        builder: (context) => JsonUIDialogManager(parsedJsonUI: parsedJsonUI)));
+    return await key.currentState?.push(PageRouteBuilder(
+        opaque: false,
+        pageBuilder: (context, primary, secondary) =>
+            JsonUIDialogManager(parsedJsonUI: parsedJsonUI)));
   }
 
   void pop() {
