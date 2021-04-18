@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:json_ui/json_ui.dart';
 
+GlobalKey<NavigatorState> navigationKey = GlobalKey<NavigatorState>();
+
 void main() {
   runApp(MyApp());
 }
@@ -16,6 +18,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: MyHomePage(title: 'Flutter Demo Home Page'),
+      navigatorKey: navigationKey,
     );
   }
 }
@@ -43,7 +46,8 @@ class _MyHomePageState extends State<MyHomePage> {
     String data =
         await DefaultAssetBundle.of(context).loadString("assets/netflix.json");
     _json = json.decode(data);
-    JsonUI.init(jsonData: _json, context: context);
+    JsonUI.init(jsonData: _json, navigationKey: navigationKey);
+    //you can use context instead of navigationKey
   }
 
   void _incrementCounter() {
@@ -69,6 +73,20 @@ class _MyHomePageState extends State<MyHomePage> {
               '$_counter',
               style: Theme.of(context).textTheme.headline4,
             ),
+            SizedBox(height: 30),
+            TextButton(
+                style: ButtonStyle(
+                  minimumSize: MaterialStateProperty.resolveWith(
+                      (states) => Size(0, 50)),
+                  backgroundColor: MaterialStateProperty.resolveWith(
+                      (states) => Colors.blueAccent),
+                  foregroundColor: MaterialStateProperty.resolveWith(
+                      (states) => Colors.white),
+                  overlayColor: MaterialStateProperty.resolveWith(
+                      (states) => Colors.lightBlueAccent),
+                ),
+                onPressed: () => loadJson(),
+                child: Text('Show full screen JSON to UI dialog'))
           ],
         ),
       ),

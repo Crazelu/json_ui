@@ -5,9 +5,10 @@ import 'package:json_ui/src/utils/locator.dart';
 
 ///Binds method names to method calls with parameter unloading
 class JsonMethodChannel {
-  late final Function dismiss;
+  Function? dismiss;
 
   void registerDismissListener(Function dismiss) {
+    if (this.dismiss != null) return;
     this.dismiss = dismiss;
   }
 
@@ -34,6 +35,6 @@ class JsonMethodChannel {
 
   //dismisses JsonUI page
   void _dismissPage() {
-    dismiss();
+    dismiss!();
   }
 }

@@ -7,9 +7,22 @@ import 'package:json_ui/src/utils/navigaton_service.dart';
 GetIt locator = GetIt.instance;
 
 void setupLocator({GlobalKey<NavigatorState>? navigationKey}) {
-  locator.registerLazySingleton(() => JsonMethodChannel());
-  locator.registerLazySingleton(() => HttpService());
-  if (navigationKey != null) {
-    locator.registerLazySingleton(() => NavigationService(key: navigationKey));
+  try {
+    if (!locator.isRegistered(instance: JsonMethodChannel)) {
+      locator.registerLazySingleton(() => JsonMethodChannel());
+    }
+
+    if (!locator.isRegistered(instance: HttpService)) {
+      locator.registerLazySingleton(() => HttpService());
+    }
+
+    if (navigationKey != null) {
+      if (!locator.isRegistered(instance: NavigationService)) {
+        locator
+            .registerLazySingleton(() => NavigationService(key: navigationKey));
+      }
+    }
+  } catch (e) {
+    print(e);
   }
 }

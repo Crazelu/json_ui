@@ -98,11 +98,9 @@ packages:
   json_ui:
     dependency: "direct main"
     description:
-      path: "."
-      ref: HEAD
-      resolved-ref: c7b9cb861d19d8fd5b8b601b4c5726184e14682d
-      url: "git://github.com/Crazelu/json_ui.git"
-    source: git
+      path: "c:/projects/json_ui/"
+      relative: false
+    source: path
     version: "0.0.1"
   matcher:
     dependency: transitive
