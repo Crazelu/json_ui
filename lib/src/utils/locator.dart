@@ -8,8 +8,8 @@ GetIt locator = GetIt.instance;
 
 void setupLocator({GlobalKey<NavigatorState>? navigationKey}) {
   locator.registerLazySingleton(() => JsonMethodChannel());
-  locator.registerSingleton(() => HttpService());
+  locator.registerLazySingleton(() => HttpService());
   if (navigationKey != null) {
-    locator.registerSingleton(() => NavigationService(key: navigationKey));
+    locator.registerLazySingleton(() => NavigationService(key: navigationKey));
   }
 }
