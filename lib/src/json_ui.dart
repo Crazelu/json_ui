@@ -10,7 +10,9 @@ import 'package:json_ui/src/utils/navigaton_service.dart';
 
 class JsonUI {
   static void init({
-    required String url,
+    Map<String, dynamic>?
+        jsonData, //JSON to be parsed into UI if you don't want JsonUI to load your JSON data from a web service,
+    String? url,
     RequestType requestType = RequestType.get,
     GlobalKey<NavigatorState>? navigationKey,
     BuildContext? context,
@@ -20,15 +22,22 @@ class JsonUI {
     Map<String, dynamic>? body,
     Map<String, String>? headers,
   }) async {
+    assert(jsonData != null || url != null, "jsonData or url required");
     assert(navigationKey != null || context != null,
         "context or navigationKey required for navigation");
 
     setupLocator(navigationKey: navigationKey);
 
-    final json = await locator<HttpService>()
-        .sendNetworkRequest(url, requestType, body: body, headers: headers);
+    var json;
 
-    if (json != null && json is Map) {
+    if (url != null) {
+      json = await locator<HttpService>()
+          .sendNetworkRequest(url, requestType, body: body, headers: headers);
+    } else {
+      json = jsonData;
+    }
+
+    if (json != null && json is Map<String, dynamic>) {
       JsonFlutterUI parsedJsonUI = JsonFlutterUI.fromJson(json);
 
       Future.delayed(delay).then((value) {
