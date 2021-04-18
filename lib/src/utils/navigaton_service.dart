@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
 import 'package:json_ui/src/manager.dart';
 import 'package:json_ui/src/parsers/ui/json_flutter_ui.dart';

@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
 import 'package:json_ui/src/manager.dart';
 import 'package:json_ui/src/parsers/api/request.dart';
@@ -11,14 +10,13 @@ import 'package:json_ui/src/utils/navigaton_service.dart';
 class JsonUI {
   static void init({
     Map<String, dynamic>?
-        jsonData, //JSON to be parsed into UI if you don't want JsonUI to load your JSON data from a web service,
+        jsonData, //JSON to be parsed into UI if you don't want JsonUI to load your JSON data from a web service
     String? url,
     RequestType requestType = RequestType.get,
     GlobalKey<NavigatorState>? navigationKey,
     BuildContext? context,
-    Duration delay: const Duration(
-        milliseconds:
-            0), //delay time after json data is retrieved before dialog is shown
+    Duration delay =
+        const Duration(), //delay time after json data is retrieved before dialog is shown
     Map<String, dynamic>? body,
     Map<String, String>? headers,
   }) async {

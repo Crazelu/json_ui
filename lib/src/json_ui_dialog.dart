@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:json_ui/src/parsers/ui/json_flutter_ui.dart';
 import 'package:json_ui/src/utils/locator.dart';
 import 'package:json_ui/src/utils/method_channel.dart';
@@ -15,9 +16,12 @@ class JsonUIDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final Size deviceSize = MediaQuery.of(context).size;
+    ScreenUtil.init(BoxConstraints(
+        maxWidth: deviceSize.width, maxHeight: deviceSize.height));
     return Container(
-      height: size.height,
-      width: size.width,
+      height: (size.height).h,
+      width: (size.width).w,
       child: Scaffold(
         backgroundColor: parsedJsonUI.backgroundColor,
         appBar: AppBar(
