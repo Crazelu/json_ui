@@ -1,4 +1,4 @@
-# json_ui_example
+# example
 
 A new Flutter project.
 
