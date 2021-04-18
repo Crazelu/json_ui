@@ -9,7 +9,8 @@ class JsonInkWell {
   final Widget child;
   final Color splashColor;
   final ApiRequest? requestParams;
-  final String? methodName;
+  final String?
+      methodName; //name of method to be invoked in `JsonMethodChannel`
 
   JsonInkWell(
       {required this.child,

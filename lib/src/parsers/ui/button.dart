@@ -70,15 +70,16 @@ class JsonButton {
                 MaterialStateProperty.resolveWith((states) => Size(100, 50)),
             textStyle: MaterialStateProperty.resolveWith(
                 (states) => TextStyle(fontSize: fontSize)),
-            backgroundColor: MaterialStateProperty.resolveWith(
-                (states) => kButtonBackgroundColor),
+            backgroundColor:
+                MaterialStateProperty.resolveWith((states) => backgroundColor),
             foregroundColor:
                 MaterialStateProperty.resolveWith((states) => textColor),
             overlayColor:
                 MaterialStateProperty.resolveWith((states) => splashColor),
             shape: MaterialStateProperty.resolveWith((states) => shape)),
         onPressed: () {
-          locator<JsonMethodChannel>().invokeMethod(methodName, params: requestParams);
+          locator<JsonMethodChannel>()
+              .invokeMethod(methodName, params: requestParams);
         },
         child: child ?? Text(text));
   }
