@@ -16,9 +16,6 @@ class JsonUIDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Size deviceSize = MediaQuery.of(context).size;
-    ScreenUtil.init(BoxConstraints(
-        maxWidth: deviceSize.width, maxHeight: deviceSize.height));
     return Container(
       height: (size.height).h,
       width: (size.width).w,

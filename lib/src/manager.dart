@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:json_ui/src/json_ui_dialog.dart';
 import 'package:json_ui/src/parsers/ui/json_flutter_ui.dart';
 
@@ -10,6 +11,7 @@ class JsonUIDialogManager extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, constraints) {
+      ScreenUtil.init(constraints);
       return JsonUIDialog(
           parsedJsonUI: parsedJsonUI,
           size: parsedJsonUI.isFullScreen
