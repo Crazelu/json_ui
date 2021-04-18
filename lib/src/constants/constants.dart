@@ -7,8 +7,8 @@ const kButtonBackgroundColor = const Color(0xff09ffa9);
 const Color kButtonSplashColor = const Color(0xff08cca9);
 
 //method names
-const String kMakeRequest = "makeRequest";
-const String kDismissPage = "dismissPage";
+const String kMakeRequest = "makeNetworkRequest";
+const String kDismissPage = "dismiss";
 
 //text style shit
 const double kDefaultFontSize = 14;
