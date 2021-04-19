@@ -34,6 +34,8 @@ class JsonMethodChannel {
 
   //dismisses JsonUI page
   void _dismissPage() {
-    dismiss!();
+    if (dismiss != null) {
+      dismiss!();
+    }
   }
 }
