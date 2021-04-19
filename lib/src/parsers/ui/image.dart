@@ -16,10 +16,12 @@ class JsonImage {
 
   factory JsonImage.fromJson(Map<String, dynamic> json) {
     return JsonImage(
-        json['imageUrl'], Size(json['size']['width'], json['size']['height']),
+        json['imageUrl'],
+        Size((json['size']['width']).toDouble(),
+            (json['size']['height']).toDouble()),
         overlayText: json['displayText'] ?? '',
-        verticalPadding: json["verticalPadding"] ?? 0,
-        borderRadius: json["borderRadius"] ?? 0,
+        verticalPadding: (json["verticalPadding"] ?? 0).toDouble(),
+        borderRadius: (json["borderRadius"] ?? 0).toDouble(),
         fit: _getBoxFit(json['fit']));
   }
 

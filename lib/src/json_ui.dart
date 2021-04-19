@@ -1,4 +1,5 @@
 import 'package:flutter/widgets.dart';
+import 'package:json_ui/src/constants/constants.dart';
 import 'package:json_ui/src/manager.dart';
 import 'package:json_ui/src/parsers/api/request.dart';
 import 'package:json_ui/src/parsers/ui/json_flutter_ui.dart';
@@ -12,7 +13,8 @@ class JsonUI {
     Map<String, dynamic>?
         jsonData, //JSON to be parsed into UI if you don't want JsonUI to load your JSON data from a web service
     String? url,
-    RequestType requestType = RequestType.get,
+    RequestType requestType =
+        RequestType.get, //type of network request to be made
     GlobalKey<NavigatorState>? navigationKey,
     BuildContext? context,
     Duration delay =
@@ -27,10 +29,13 @@ class JsonUI {
     setupLocator(navigationKey: navigationKey);
 
     var json;
+    final methodChannel = locator<JsonMethodChannel>();
+    final navigationService = locator<NavigationService>();
 
     if (url != null) {
-      json = await locator<HttpService>()
-          .sendNetworkRequest(url, requestType, body: body, headers: headers);
+      json = await methodChannel.invokeMethod(kMakeRequest,
+          params: ApiRequest(
+              url: url, type: requestType, body: body, headers: headers));
     } else {
       json = jsonData;
     }
@@ -40,12 +45,12 @@ class JsonUI {
 
       Future.delayed(delay).then((value) {
         if (navigationKey != null) {
-          locator<JsonMethodChannel>().registerDismissListener(() {
-            locator<NavigationService>().pop();
+          methodChannel.registerDismissListener(() {
+            navigationService.pop();
           });
-          locator<NavigationService>().push(parsedJsonUI);
+          navigationService.push(parsedJsonUI);
         } else {
-          locator<JsonMethodChannel>().registerDismissListener(() {
+          methodChannel.registerDismissListener(() {
             Navigator.of(context!).pop();
           });
           Navigator.of(context!).push(PageRouteBuilder(

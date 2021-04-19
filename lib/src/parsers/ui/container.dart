@@ -24,9 +24,9 @@ class JsonContainer {
             ? null
             : Color(
                 int.tryParse(json['color'] ?? '') ?? kPrimaryColorLight.value),
-        radius: json['radius'] ?? 0,
-        height: json['height'] == null ? null : json['height'],
-        width: json['width'] == null ? null : json['width'],
+        radius: (json['radius'] ?? 0).toDouble(),
+        height: json['height'] == null ? null : (json['height']).toDouble(),
+        width: json['width'] == null ? null : (json['width']).toDouble(),
         alignment: _getAlignment(json['alignment']),
         child: JsonUIUtils.getWidgetFromJson(json['child']));
   }

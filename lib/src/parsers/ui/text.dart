@@ -28,12 +28,12 @@ class JsonText {
         data: json['data'],
         softWrap: json['softWrap'],
         maxLines: json['maxLines'],
-        height: json['height'] == null ? null : json['height'],
-        width: json['width'] == null ? null : json['width'],
+        height: json['height'] == null ? null : json['height'].toDouble(),
+        width: json['width'] == null ? null : json['width'].toDouble(),
         style: JsonTextStyle.fromJson(json['style']),
         overflow: _getOverflow(json['overflow']),
         textAlign: _getAlignment(json['textAlignment']),
-        verticalPadding: json["verticalPadding"] ?? 0);
+        verticalPadding: (json["verticalPadding"] ?? 0).toDouble());
   }
 
   Widget toWidget() {
@@ -97,13 +97,14 @@ class JsonTextStyle {
     if (json == null) return JsonTextStyle();
     if (json['color'] != null) {
       return JsonTextStyle(
-          fontSize: json['fontSize'],
+          fontSize: (json['fontSize'] ?? kDefaultFontSize).toDouble(),
           fontWeight: json['fontWeight'] ?? '',
           textColor: Color(
               int.tryParse(json['color'] ?? '') ?? kPrimaryColorLight.value));
     }
     return JsonTextStyle(
-        fontSize: json['fontSize'], fontWeight: json['fontWeight'] ?? '');
+        fontSize: (json['fontSize'] ?? kDefaultFontSize).toDouble(),
+        fontWeight: json['fontWeight'] ?? '');
   }
 
   TextStyle toTextStyle() {

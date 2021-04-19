@@ -36,7 +36,11 @@ class JsonFlutterUI {
   }
 
   static Size? _getSize(Map<String, dynamic>? json) {
-    if (json == null) return null;
-    return Size(json['width'], json['height']);
+    try {
+      if (json == null) return null;
+      return Size(json['width'].toDouble(), json['height'].toDouble());
+    } catch (e) {
+      print(e);
+    }
   }
 }

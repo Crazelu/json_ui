@@ -43,8 +43,8 @@ class JsonButton {
         child: json['child'] == null
             ? null
             : JsonUIUtils.getWidgetFromJson(json['child']),
-        verticalPadding: json["verticalPadding"] ?? 0,
-        fontSize: json["fontSize"] ?? kDefaultFontSize,
+        verticalPadding: (json["verticalPadding"] ?? 0).toDouble(),
+        fontSize: (json["fontSize"] ?? kDefaultFontSize).toDouble(),
         methodName: json['methodName'],
         shape: _getShape(json['shape']),
         requestParams: ApiRequest.fromJson(json['apiRequestParams']));

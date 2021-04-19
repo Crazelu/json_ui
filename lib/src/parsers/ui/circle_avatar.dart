@@ -18,7 +18,7 @@ class JsonCircleAvatar {
 
   factory JsonCircleAvatar.fromJson(Map<String, dynamic> json) {
     return JsonCircleAvatar(
-        radius: json['radius'] ?? 10,
+        radius: (json['radius'] ?? 10).toDouble(),
         imageUrl: json['imageUrl'],
         backgroundColor: Color(int.tryParse(json['backgroundColor'] ?? '') ??
             kPrimaryColorLight.value),

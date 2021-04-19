@@ -8,17 +8,16 @@ class JsonMethodChannel {
   Function? dismiss;
 
   void registerDismissListener(Function dismiss) {
-    if (this.dismiss != null) return;
+    // if (this.dismiss != null) return;
     this.dismiss = dismiss;
   }
 
   //invokes method associated with `methodName`
-  void invokeMethod(String? methodName, {ApiRequest? params}) {
+  Future<Object?> invokeMethod(String? methodName, {ApiRequest? params}) async {
     switch (methodName) {
       case kMakeRequest:
         assert(params != null);
-        _makeNetworkRequest(params!);
-        break;
+        return await _makeNetworkRequest(params!);
       case kDismissPage:
         _dismissPage();
         break;
@@ -27,8 +26,9 @@ class JsonMethodChannel {
   }
 
   //Makes network request
-  Future<dynamic>? _makeNetworkRequest(ApiRequest requestParams) async {
-    await locator<HttpService>().sendNetworkRequest(
+  Future<Map<String, dynamic>?> _makeNetworkRequest(
+      ApiRequest requestParams) async {
+    return await locator<HttpService>().sendNetworkRequest(
         requestParams.url, requestParams.type,
         body: requestParams.body, headers: requestParams.headers);
   }

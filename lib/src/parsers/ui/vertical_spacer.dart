@@ -10,7 +10,7 @@ class JsonVerticalSpacer {
 
   factory JsonVerticalSpacer.fromJson(Map<String, dynamic> json) {
     return JsonVerticalSpacer(
-        height: json['height'],
+        height: json['height'].toDouble(),
         child: JsonUIUtils.getWidgetFromJson(json['child']));
   }
 

@@ -16,7 +16,10 @@ class JsonPadding {
   Widget toWidget() => Padding(padding: padding, child: child);
 
   static EdgeInsets _getEdgeInsets(Map<String, dynamic> json) {
-    return EdgeInsets.fromLTRB(json['left'] ?? 0, json['top'] ?? 0,
-        json['right'] ?? 0, json['bottom'] ?? 0);
+    return EdgeInsets.fromLTRB(
+        (json['left'] ?? 0).toDouble(),
+        (json['top'] ?? 0).toDouble(),
+        (json['right'] ?? 0).toDouble(),
+        (json['bottom'] ?? 0).toDouble());
   }
 }

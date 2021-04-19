@@ -5,20 +5,17 @@ class JsonColumn {
   final List<Widget> children;
   final MainAxisAlignment? mainAxisAlignment;
   final CrossAxisAlignment? crossAxisAlignment;
-  final double verticalPadding;
 
   JsonColumn(
       {required this.children,
       this.mainAxisAlignment,
-      this.crossAxisAlignment,
-      this.verticalPadding: 0});
+      this.crossAxisAlignment,});
 
   factory JsonColumn.fromJson(Map<String, dynamic> json) {
     return JsonColumn(
         children: JsonUIUtils.getWidgets(json['children']),
         mainAxisAlignment: _getAlignment(true, json['mainAxisAlignment']),
-        crossAxisAlignment: _getAlignment(false, json['crossAxisAlignment']),
-        verticalPadding: json['verticalPadding'] ?? 0);
+        crossAxisAlignment: _getAlignment(false, json['crossAxisAlignment']),);
   }
 
   static _getAlignment(bool isMainAxisAlignment, String? alignment) {
