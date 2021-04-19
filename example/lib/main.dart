@@ -13,11 +13,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'JsonUI Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: MyHomePage(title: 'JsonUI Demo Home Page'),
       navigatorKey: navigationKey,
     );
   }
@@ -47,9 +47,11 @@ class _MyHomePageState extends State<MyHomePage> {
     //     await DefaultAssetBundle.of(context).loadString("assets/netflix.json");
     // _json = json.decode(data);
     JsonUI.init(
-        url: "https://json-ui-server-crazelu.vercel.app/abeg",
+        url: "https://json-ui-server-crazelu.vercel.app/netflix",
+        // jsonData:_json,
+        // context:context,
         navigationKey: navigationKey);
-    //you can use context instead of navigationKey
+    //you can use context instead of a navigationKey
   }
 
   void _incrementCounter() {

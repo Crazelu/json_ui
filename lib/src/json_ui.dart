@@ -3,7 +3,6 @@ import 'package:json_ui/src/constants/constants.dart';
 import 'package:json_ui/src/manager.dart';
 import 'package:json_ui/src/parsers/api/request.dart';
 import 'package:json_ui/src/parsers/ui/json_flutter_ui.dart';
-import 'package:json_ui/src/utils/http_service.dart';
 import 'package:json_ui/src/utils/locator.dart';
 import 'package:json_ui/src/utils/method_channel.dart';
 import 'package:json_ui/src/utils/navigaton_service.dart';
