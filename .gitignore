@@ -26,6 +26,8 @@
 .flutter-plugins
 .flutter-plugins-dependencies
 .packages
+.pubspec.lock
+.vscode/
 .pub-cache/
 .pub/
 build/
