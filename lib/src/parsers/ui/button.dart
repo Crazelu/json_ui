@@ -17,49 +17,63 @@ class JsonButton {
   final ApiRequest? requestParams;
   final String?
       methodName; //name of method to be invoked in `JsonMethodChannel`
+  final String? afterOnPressedMethodExecuted;
 
-  JsonButton(
-      {this.backgroundColor: kButtonBackgroundColor,
-      this.textColor: kPrimaryColorLight,
-      this.splashColor: kButtonSplashColor,
-      this.text: '',
-      this.verticalPadding: 0,
-      this.fontSize: kDefaultFontSize,
-      this.shape,
-      this.child,
-      this.requestParams,
-      this.methodName});
+  JsonButton({
+    this.backgroundColor: kButtonBackgroundColor,
+    this.textColor: kPrimaryColorLight,
+    this.splashColor: kButtonSplashColor,
+    this.text: '',
+    this.verticalPadding: 0,
+    this.fontSize: kDefaultFontSize,
+    this.shape,
+    this.child,
+    this.requestParams,
+    this.methodName,
+    this.afterOnPressedMethodExecuted,
+  });
 
   factory JsonButton.fromJson(Map<String, dynamic> json) {
     return JsonButton(
-        backgroundColor: Color(
-            int.tryParse(json['backgroundColor'].toString()) ??
-                kButtonBackgroundColor.value),
-        textColor: Color(int.tryParse(json['textColor'].toString()) ??
-            kPrimaryColorLight.value),
-        splashColor: Color(int.tryParse(json['splashColor'].toString()) ??
-            kButtonSplashColor.value),
-        text: json['text'],
-        child: json['child'] == null
-            ? null
-            : JsonUIUtils.getWidgetFromJson(json['child']),
-        verticalPadding: (json["verticalPadding"] ?? 0).toDouble(),
-        fontSize: (json["fontSize"] ?? kDefaultFontSize).toDouble(),
-        methodName: json['methodName'],
-        shape: _getShape(json['shape']),
-        requestParams: ApiRequest.fromJson(json['apiRequestParams']));
+      backgroundColor: Color(int.tryParse(json['backgroundColor'].toString()) ??
+          kButtonBackgroundColor.value),
+      textColor: Color(int.tryParse(json['textColor'].toString()) ??
+          kPrimaryColorLight.value),
+      splashColor: Color(int.tryParse(json['splashColor'].toString()) ??
+          kButtonSplashColor.value),
+      text: json['text'] ?? 'No button text',
+      child: json['child'] == null
+          ? null
+          : JsonUIUtils.getWidgetFromJson(json['child']),
+      verticalPadding: (json["verticalPadding"] ?? 0).toDouble(),
+      fontSize: (json["fontSize"] ?? kDefaultFontSize).toDouble(),
+      methodName: json['methodName'],
+      afterOnPressedMethodExecuted: json['onDone'],
+      shape: _getShape(json['shape']),
+      requestParams: ApiRequest.fromJson(
+        json['apiRequestParams'],
+      ),
+    );
   }
 
   static OutlinedBorder? _getShape(Map<String?, dynamic>? json) {
-    switch (json!['shape']) {
-      case 'stadium':
-        return StadiumBorder();
-      case 'circular':
-        return CircleBorder();
-      case 'rectangular':
-        return RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(json['radius']));
-      default:
+    try {
+      switch (json!['shape']) {
+        case 'stadium':
+          return StadiumBorder();
+        case 'circular':
+          return CircleBorder();
+        case 'rectangular':
+          return RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(
+              json['radius'] ?? 0,
+            ),
+          );
+        default:
+          return null;
+      }
+    } catch (e) {
+      return null;
     }
   }
 
@@ -77,9 +91,11 @@ class JsonButton {
             overlayColor:
                 MaterialStateProperty.resolveWith((states) => splashColor),
             shape: MaterialStateProperty.resolveWith((states) => shape)),
-        onPressed: () {
-          locator<JsonMethodChannel>()
-              .invokeMethod(methodName, params: requestParams);
+        onPressed: () async {
+          final channel = locator<JsonMethodChannel>();
+          await channel.invokeMethod(methodName, params: requestParams);
+
+          channel.invokeMethod(afterOnPressedMethodExecuted);
         },
         child: child ?? Text(text));
   }

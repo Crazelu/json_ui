@@ -6,21 +6,27 @@ import 'package:json_ui/src/utils/navigaton_service.dart';
 
 GetIt locator = GetIt.instance;
 
+void _removeRegistrationIfExists<T extends Object>() {
+  if (locator.isRegistered<T>()) {
+    locator.unregister<T>();
+  }
+}
+
 void setupLocator({GlobalKey<NavigatorState>? navigationKey}) {
   try {
-    if (!locator.isRegistered(instance: JsonMethodChannel)) {
-      locator.registerLazySingleton(() => JsonMethodChannel());
-    }
+    _removeRegistrationIfExists<JsonMethodChannel>();
+    locator.registerLazySingleton(() => JsonMethodChannel());
 
-    if (!locator.isRegistered(instance: HttpService)) {
-      locator.registerLazySingleton(() => HttpService());
-    }
+    _removeRegistrationIfExists<HttpService>();
+    locator.registerLazySingleton(() => HttpService());
 
     if (navigationKey != null) {
-      if (!locator.isRegistered(instance: NavigationService)) {
-        locator
-            .registerLazySingleton(() => NavigationService(key: navigationKey));
-      }
+      _removeRegistrationIfExists<NavigationService>();
+      locator.registerLazySingleton(
+        () => NavigationService(
+          key: navigationKey,
+        ),
+      );
     }
   } catch (e) {
     print(e);

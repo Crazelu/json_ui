@@ -42,22 +42,29 @@ class JsonUI {
     if (json != null && json is Map<String, dynamic>) {
       JsonFlutterUI parsedJsonUI = JsonFlutterUI.fromJson(json);
 
-      Future.delayed(delay).then((value) {
-        if (navigationKey != null) {
-          methodChannel.registerDismissListener(() {
-            navigationService.pop();
-          });
-          navigationService.push(parsedJsonUI);
-        } else {
-          methodChannel.registerDismissListener(() {
-            Navigator.of(context!).pop();
-          });
-          Navigator.of(context!).push(PageRouteBuilder(
-              opaque: false,
-              pageBuilder: (context, primary, secondary) =>
-                  JsonUIDialogManager(parsedJsonUI: parsedJsonUI)));
-        }
-      });
+      Future.delayed(delay).then(
+        (value) {
+          if (navigationKey != null) {
+            methodChannel.registerDismissListener(() {
+              navigationService.pop();
+            });
+            navigationService.push(parsedJsonUI);
+          } else {
+            methodChannel.registerDismissListener(() {
+              Navigator.of(context!).pop();
+            });
+            Navigator.of(context!).push(
+              PageRouteBuilder(
+                opaque: false,
+                pageBuilder: (context, primary, secondary) =>
+                    JsonUIDialogManager(
+                  parsedJsonUI: parsedJsonUI,
+                ),
+              ),
+            );
+          }
+        },
+      );
     }
   }
 }

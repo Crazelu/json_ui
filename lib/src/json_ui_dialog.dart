@@ -16,60 +16,38 @@ class JsonUIDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-        child: Material(
+    return Material(
       child: Container(
-          color: parsedJsonUI.backgroundColor,
-          constraints: BoxConstraints.tight(size),
-          // height: (size.height).h,
-          // width: (size.width).w,
-          child: Column(
-            children: [
-              if (parsedJsonUI.shouldShowDismiss)
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    FloatingActionButton(
-                        mini: true,
-                        backgroundColor: parsedJsonUI.dismissButtonColor,
-                        child: Icon(
-                          Icons.close,
-                          color: parsedJsonUI.dismissIconColor,
-                        ),
-                        onPressed: () {
-                          dismiss();
-                        }),
-                  ],
-                ),
-              Expanded(
-                child: parsedJsonUI.widget,
-              )
-            ],
-          )),
-    ));
+        color: parsedJsonUI.backgroundColor,
+        constraints: BoxConstraints.tight(size),
+        child: Column(
+          children: [
+            if (parsedJsonUI.shouldShowDismiss) ...{
+              const SizedBox(height: 30),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  FloatingActionButton(
+                    mini: true,
+                    backgroundColor: parsedJsonUI.dismissButtonColor,
+                    child: Icon(
+                      Icons.close,
+                      color: parsedJsonUI.dismissIconColor,
+                    ),
+                    onPressed: () {
+                      dismiss();
+                    },
+                  ),
+                  const SizedBox(width: 10),
+                ],
+              ),
+            },
+            Expanded(
+              child: parsedJsonUI.widget,
+            )
+          ],
+        ),
+      ),
+    );
   }
 }
-
-
-//  Scaffold(
-//         backgroundColor: parsedJsonUI.backgroundColor,
-//         appBar: AppBar(
-//           automaticallyImplyLeading: false,
-//           backgroundColor: parsedJsonUI.backgroundColor,
-//           elevation: 0,
-//           actions: [
-//             if (parsedJsonUI.shouldShowDismiss)
-//               FloatingActionButton(
-//                   mini: true,
-//                   backgroundColor: parsedJsonUI.dismissButtonColor,
-//                   child: Icon(
-//                     Icons.close,
-//                     color: parsedJsonUI.dismissIconColor,
-//                   ),
-//                   onPressed: () {
-//                     dismiss();
-//                   }),
-//           ],
-//         ),
-//         body: Container(child: parsedJsonUI.widget),
-//       ),

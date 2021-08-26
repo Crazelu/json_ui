@@ -10,13 +10,16 @@ class JsonUIDialogManager extends StatelessWidget {
       : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(builder: (context, constraints) {
-      ScreenUtil.init(constraints);
-      return JsonUIDialog(
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        ScreenUtil.init(constraints);
+        return JsonUIDialog(
           parsedJsonUI: parsedJsonUI,
           size: parsedJsonUI.isFullScreen
               ? Size(constraints.maxWidth, constraints.maxHeight)
-              : parsedJsonUI.dialogSize ?? const Size(400, 600));
-    });
+              : parsedJsonUI.dialogSize ?? const Size(400, 600),
+        );
+      },
+    );
   }
 }

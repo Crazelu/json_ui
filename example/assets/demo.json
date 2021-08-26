@@ -1,0 +1,30 @@
+{
+    "backgroundColor": "0xff000000",
+    "dismissIconColor": "0xffffffff",
+    "dismissButtonColor": "0xffe30813",
+    "shouldShowDismiss": true,
+    "isFullScreen": true,
+    "type": "listview",
+    "children": [
+
+        {
+            "type": "verticalSpacer",
+            "height": 15.0
+        },
+
+        {
+            "type": "button",
+            "text": "Make Request",
+            "backgroundColor": "0xffe30813",
+            "splashColor": "0xffe204a3",
+            "fontSize": 16.0,
+            "methodName": "makeNetworkRequest",
+            "apiRequestParams": {
+                "type": "get",
+                "url": "https://json-ui-server-crazelu.vercel.app/bamboo"
+            },
+            "onDone": "dismiss"
+
+        }
+    ]
+}

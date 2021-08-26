@@ -10,7 +10,6 @@ const Color kButtonSplashColor = const Color(0xff08cca9);
 const String kMakeRequest = "makeNetworkRequest";
 const String kDismissPage = "dismiss";
 
-//text style shit
 const double kDefaultFontSize = 14;
 
 const SizedBox kVerticalSpace = SizedBox(height: 10);
