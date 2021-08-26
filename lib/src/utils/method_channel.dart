@@ -21,6 +21,7 @@ class JsonMethodChannel {
         _dismissPage();
         break;
       default:
+        print("Unknown method name: $methodName");
     }
   }
 
