@@ -20,12 +20,12 @@ class JsonButton {
   final String? afterOnPressedMethodExecuted;
 
   JsonButton({
-    this.backgroundColor: kButtonBackgroundColor,
-    this.textColor: kPrimaryColorLight,
-    this.splashColor: kButtonSplashColor,
-    this.text: '',
-    this.verticalPadding: 0,
-    this.fontSize: kDefaultFontSize,
+    this.backgroundColor = kButtonBackgroundColor,
+    this.textColor = kPrimaryColorLight,
+    this.splashColor = kButtonSplashColor,
+    this.text = '',
+    this.verticalPadding = 0,
+    this.fontSize = kDefaultFontSize,
     this.shape,
     this.child,
     this.requestParams,
@@ -35,12 +35,17 @@ class JsonButton {
 
   factory JsonButton.fromJson(Map<String, dynamic> json) {
     return JsonButton(
-      backgroundColor: Color(int.tryParse(json['backgroundColor'].toString()) ??
-          kButtonBackgroundColor.value),
-      textColor: Color(int.tryParse(json['textColor'].toString()) ??
-          kPrimaryColorLight.value),
-      splashColor: Color(int.tryParse(json['splashColor'].toString()) ??
-          kButtonSplashColor.value),
+      backgroundColor: Color(
+        int.tryParse(json['backgroundColor'].toString()) ??
+            kButtonBackgroundColor.value,
+      ),
+      textColor: Color(
+        int.tryParse(json['textColor'].toString()) ?? kPrimaryColorLight.value,
+      ),
+      splashColor: Color(
+        int.tryParse(json['splashColor'].toString()) ??
+            kButtonSplashColor.value,
+      ),
       text: json['text'] ?? 'No button text',
       child: json['child'] == null
           ? null
@@ -79,24 +84,25 @@ class JsonButton {
 
   Widget toWidget() {
     return TextButton(
-        style: ButtonStyle(
-            minimumSize:
-                MaterialStateProperty.resolveWith((states) => Size(100, 50)),
-            textStyle: MaterialStateProperty.resolveWith(
-                (states) => TextStyle(fontSize: fontSize)),
-            backgroundColor:
-                MaterialStateProperty.resolveWith((states) => backgroundColor),
-            foregroundColor:
-                MaterialStateProperty.resolveWith((states) => textColor),
-            overlayColor:
-                MaterialStateProperty.resolveWith((states) => splashColor),
-            shape: MaterialStateProperty.resolveWith((states) => shape)),
-        onPressed: () async {
-          final channel = locator<JsonMethodChannel>();
-          await channel.invokeMethod(methodName, params: requestParams);
+      style: ButtonStyle(
+          minimumSize:
+              MaterialStateProperty.resolveWith((states) => Size(100, 50)),
+          textStyle: MaterialStateProperty.resolveWith(
+              (states) => TextStyle(fontSize: fontSize)),
+          backgroundColor:
+              MaterialStateProperty.resolveWith((states) => backgroundColor),
+          foregroundColor:
+              MaterialStateProperty.resolveWith((states) => textColor),
+          overlayColor:
+              MaterialStateProperty.resolveWith((states) => splashColor),
+          shape: MaterialStateProperty.resolveWith((states) => shape)),
+      onPressed: () async {
+        final channel = locator<JsonMethodChannel>();
+        await channel.invokeMethod(methodName, params: requestParams);
 
-          channel.invokeMethod(afterOnPressedMethodExecuted);
-        },
-        child: child ?? Text(text));
+        channel.invokeMethod(afterOnPressedMethodExecuted);
+      },
+      child: child ?? Text(text),
+    );
   }
 }

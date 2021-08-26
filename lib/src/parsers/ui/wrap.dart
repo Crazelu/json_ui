@@ -6,16 +6,18 @@ class JsonWrap {
   final double horizontalSpacing;
   final double verticalSpacing; //space between runs on different lines
 
-  JsonWrap(
-      {required this.children,
-      this.verticalSpacing: 0,
-      this.horizontalSpacing: 10});
+  JsonWrap({
+    required this.children,
+    this.verticalSpacing = 0,
+    this.horizontalSpacing = 10,
+  });
 
   factory JsonWrap.fromJson(Map<String, dynamic> json) {
     return JsonWrap(
-        children: JsonUIUtils.getWidgets(json['children']),
-        verticalSpacing: (json['verticalSpacing'] ?? 0).toDouble(),
-        horizontalSpacing: (json["horizontalSpacing"] ?? 0).toDouble());
+      children: JsonUIUtils.getWidgets(json['children']),
+      verticalSpacing: (json['verticalSpacing'] ?? 0).toDouble(),
+      horizontalSpacing: (json["horizontalSpacing"] ?? 0).toDouble(),
+    );
   }
 
   Widget toWidget() {

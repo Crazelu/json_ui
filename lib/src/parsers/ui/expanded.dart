@@ -6,15 +6,22 @@ class JsonExpanded {
   final Widget child;
   final int flex;
 
-  JsonExpanded({required this.child, this.flex: kDefaultFlex});
+  JsonExpanded({
+    required this.child,
+    this.flex = kDefaultFlex,
+  });
 
   factory JsonExpanded.fromJson(Map<String, dynamic> json) {
     return JsonExpanded(
-        child: JsonUIUtils.getWidgetFromJson(json['child']),
-        flex: json['flex'] ?? kDefaultFlex);
+      child: JsonUIUtils.getWidgetFromJson(json['child']),
+      flex: json['flex'] ?? kDefaultFlex,
+    );
   }
 
   Widget toWidget() {
-    return Expanded(flex: flex, child: child);
+    return Expanded(
+      flex: flex,
+      child: child,
+    );
   }
 }

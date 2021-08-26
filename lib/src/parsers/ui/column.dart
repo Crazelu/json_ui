@@ -6,16 +6,18 @@ class JsonColumn {
   final MainAxisAlignment? mainAxisAlignment;
   final CrossAxisAlignment? crossAxisAlignment;
 
-  JsonColumn(
-      {required this.children,
-      this.mainAxisAlignment,
-      this.crossAxisAlignment,});
+  JsonColumn({
+    required this.children,
+    this.mainAxisAlignment,
+    this.crossAxisAlignment,
+  });
 
   factory JsonColumn.fromJson(Map<String, dynamic> json) {
     return JsonColumn(
-        children: JsonUIUtils.getWidgets(json['children']),
-        mainAxisAlignment: _getAlignment(true, json['mainAxisAlignment']),
-        crossAxisAlignment: _getAlignment(false, json['crossAxisAlignment']),);
+      children: JsonUIUtils.getWidgets(json['children']),
+      mainAxisAlignment: _getAlignment(true, json['mainAxisAlignment']),
+      crossAxisAlignment: _getAlignment(false, json['crossAxisAlignment']),
+    );
   }
 
   static _getAlignment(bool isMainAxisAlignment, String? alignment) {
@@ -46,6 +48,8 @@ class JsonColumn {
         return CrossAxisAlignment.center;
 
       default:
+        if (isMainAxisAlignment) return MainAxisAlignment.start;
+        return CrossAxisAlignment.center;
     }
   }
 

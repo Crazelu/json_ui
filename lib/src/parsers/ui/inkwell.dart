@@ -12,27 +12,32 @@ class JsonInkWell {
   final String?
       methodName; //name of method to be invoked in `JsonMethodChannel`
 
-  JsonInkWell(
-      {required this.child,
-      this.splashColor: kButtonSplashColor,
-      this.requestParams,
-      this.methodName});
+  JsonInkWell({
+    required this.child,
+    this.splashColor = kButtonSplashColor,
+    this.requestParams,
+    this.methodName,
+  });
 
   factory JsonInkWell.fromJson(Map<String, dynamic> json) {
     return JsonInkWell(
       child: JsonUIUtils.getWidgetFromJson(json['child']),
       splashColor: Color(
-          int.tryParse(json['splashColor'] ?? '') ?? kButtonSplashColor.value),
+        int.tryParse(json['splashColor'] ?? '') ?? kButtonSplashColor.value,
+      ),
       requestParams: ApiRequest.fromJson(json['requestParams']),
       methodName: json['methodName'],
     );
   }
 
   Widget toWidget() => InkWell(
-      splashColor: splashColor,
-      onTap: () {
-        locator<JsonMethodChannel>()
-            .invokeMethod(methodName, params: requestParams);
-      },
-      child: child);
+        splashColor: splashColor,
+        onTap: () {
+          locator<JsonMethodChannel>().invokeMethod(
+            methodName,
+            params: requestParams,
+          );
+        },
+        child: child,
+      );
 }

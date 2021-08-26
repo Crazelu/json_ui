@@ -12,42 +12,45 @@ class JsonText {
   final double? height;
   final double? width;
 
-  JsonText(
-      {required this.data,
-      this.overflow,
-      this.textAlign,
-      this.softWrap,
-      this.maxLines,
-      this.style,
-      this.height,
-      this.width,
-      this.verticalPadding: 0});
+  JsonText({
+    required this.data,
+    this.overflow,
+    this.textAlign,
+    this.softWrap,
+    this.maxLines,
+    this.style,
+    this.height,
+    this.width,
+    this.verticalPadding = 0,
+  });
 
   factory JsonText.fromJson(Map<String, dynamic> json) {
     return JsonText(
-        data: json['data'],
-        softWrap: json['softWrap'],
-        maxLines: json['maxLines'],
-        height: json['height'] == null ? null : json['height'].toDouble(),
-        width: json['width'] == null ? null : json['width'].toDouble(),
-        style: JsonTextStyle.fromJson(json['style']),
-        overflow: _getOverflow(json['overflow']),
-        textAlign: _getAlignment(json['textAlignment']),
-        verticalPadding: (json["verticalPadding"] ?? 0).toDouble());
+      data: json['data'],
+      softWrap: json['softWrap'],
+      maxLines: json['maxLines'],
+      height: json['height'] == null ? null : json['height'].toDouble(),
+      width: json['width'] == null ? null : json['width'].toDouble(),
+      style: JsonTextStyle.fromJson(json['style']),
+      overflow: _getOverflow(json['overflow']),
+      textAlign: _getAlignment(json['textAlignment']),
+      verticalPadding: (json["verticalPadding"] ?? 0).toDouble(),
+    );
   }
 
   Widget toWidget() {
     return Container(
-        constraints: BoxConstraints(maxWidth: width ?? double.infinity),
-        padding: EdgeInsets.only(bottom: verticalPadding),
-        child: Text(
-          data,
-          overflow: overflow,
-          softWrap: softWrap,
-          textAlign: textAlign,
-          maxLines: maxLines,
-          style: style == null ? null : style!.toTextStyle(),
-        ));
+      constraints: BoxConstraints(maxWidth: width ?? double.infinity),
+      padding: EdgeInsets.only(bottom: verticalPadding),
+      child: Text(
+        data,
+        overflow: overflow,
+        softWrap: softWrap,
+        textAlign: textAlign,
+        maxLines: maxLines,
+        style: style == null ? null : style!.toTextStyle(),
+      ),
+    );
   }
 
   static TextAlign? _getAlignment(String? alignment) {
@@ -62,16 +65,13 @@ class JsonText {
         return TextAlign.left;
       case 'right':
         return TextAlign.right;
-      case 'start':
-        return TextAlign.start;
       default:
+        return TextAlign.start;
     }
   }
 
   static TextOverflow? _getOverflow(String? overflow) {
     switch (overflow) {
-      case 'ellipsis':
-        return TextOverflow.ellipsis;
       case 'clip':
         return TextOverflow.clip;
       case 'fade':
@@ -79,6 +79,7 @@ class JsonText {
       case 'visible':
         return TextOverflow.visible;
       default:
+        return TextOverflow.ellipsis;
     }
   }
 }
@@ -88,19 +89,22 @@ class JsonTextStyle {
   final String fontWeight;
   final Color textColor;
 
-  JsonTextStyle(
-      {this.fontSize: kDefaultFontSize,
-      this.fontWeight: '',
-      this.textColor: kPrimaryColorDark});
+  JsonTextStyle({
+    this.fontSize: kDefaultFontSize,
+    this.fontWeight: '',
+    this.textColor: kPrimaryColorDark,
+  });
 
   factory JsonTextStyle.fromJson(Map<String, dynamic>? json) {
     if (json == null) return JsonTextStyle();
     if (json['color'] != null) {
       return JsonTextStyle(
-          fontSize: (json['fontSize'] ?? kDefaultFontSize).toDouble(),
-          fontWeight: json['fontWeight'] ?? '',
-          textColor: Color(
-              int.tryParse(json['color'] ?? '') ?? kPrimaryColorLight.value));
+        fontSize: (json['fontSize'] ?? kDefaultFontSize).toDouble(),
+        fontWeight: json['fontWeight'] ?? '',
+        textColor: Color(
+          int.tryParse(json['color'] ?? '') ?? kPrimaryColorLight.value,
+        ),
+      );
     }
     return JsonTextStyle(
         fontSize: (json['fontSize'] ?? kDefaultFontSize).toDouble(),
@@ -109,9 +113,10 @@ class JsonTextStyle {
 
   TextStyle toTextStyle() {
     return TextStyle(
-        fontWeight: _getWeight(fontWeight),
-        fontSize: fontSize,
-        color: textColor);
+      fontWeight: _getWeight(fontWeight),
+      fontSize: fontSize,
+      color: textColor,
+    );
   }
 
   FontWeight _getWeight(String? fontWeight) {

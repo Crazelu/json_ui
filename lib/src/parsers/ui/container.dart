@@ -10,25 +10,30 @@ class JsonContainer {
   final double? height;
   final double? width;
 
-  JsonContainer(
-      {required this.child,
-      this.alignment: Alignment.center,
-      this.color,
-      this.height,
-      this.width,
-      this.radius: 0});
+  JsonContainer({
+    required this.child,
+    this.alignment: Alignment.center,
+    this.color,
+    this.height,
+    this.width,
+    this.radius = 0,
+  });
 
   factory JsonContainer.fromJson(Map<String, dynamic> json) {
     return JsonContainer(
-        color: json['color'] == null
-            ? null
-            : Color(
-                int.tryParse(json['color'] ?? '') ?? kPrimaryColorLight.value),
-        radius: (json['radius'] ?? 0).toDouble(),
-        height: json['height'] == null ? null : (json['height']).toDouble(),
-        width: json['width'] == null ? null : (json['width']).toDouble(),
-        alignment: _getAlignment(json['alignment']),
-        child: JsonUIUtils.getWidgetFromJson(json['child']));
+      color: json['color'] == null
+          ? null
+          : Color(
+              int.tryParse(json['color'] ?? '') ?? kPrimaryColorLight.value,
+            ),
+      radius: (json['radius'] ?? 0).toDouble(),
+      height: json['height'] == null ? null : (json['height']).toDouble(),
+      width: json['width'] == null ? null : (json['width']).toDouble(),
+      alignment: _getAlignment(json['alignment']),
+      child: JsonUIUtils.getWidgetFromJson(
+        json['child'],
+      ),
+    );
   }
 
   static Alignment _getAlignment(String? alignment) {
@@ -61,6 +66,8 @@ class JsonContainer {
         child: child,
         alignment: alignment,
         decoration: BoxDecoration(
-            color: color, borderRadius: BorderRadius.circular(radius)),
+          color: color,
+          borderRadius: BorderRadius.circular(radius),
+        ),
       );
 }

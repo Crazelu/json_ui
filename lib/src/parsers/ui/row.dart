@@ -6,10 +6,11 @@ class JsonRow {
   final MainAxisAlignment? mainAxisAlignment;
   final CrossAxisAlignment? crossAxisAlignment;
 
-  JsonRow(
-      {required this.children,
-      this.mainAxisAlignment,
-      this.crossAxisAlignment});
+  JsonRow({
+    required this.children,
+    this.mainAxisAlignment,
+    this.crossAxisAlignment,
+  });
 
   factory JsonRow.fromJson(Map<String, dynamic> json) {
     return JsonRow(
@@ -45,8 +46,9 @@ class JsonRow {
       case 'spaceBetween':
         if (isMainAxisAlignment) return MainAxisAlignment.spaceBetween;
         return CrossAxisAlignment.center;
-
       default:
+        if (isMainAxisAlignment) return MainAxisAlignment.start;
+        return CrossAxisAlignment.start;
     }
   }
 

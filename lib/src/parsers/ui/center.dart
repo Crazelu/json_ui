@@ -7,7 +7,11 @@ class JsonCenter {
   JsonCenter({required this.child});
 
   factory JsonCenter.fromJson(Map<String, dynamic> json) {
-    return JsonCenter(child: JsonUIUtils.getWidgetFromJson(json['child']));
+    return JsonCenter(
+      child: JsonUIUtils.getWidgetFromJson(
+        json['child'],
+      ),
+    );
   }
 
   Widget toWidget() => Center(child: child);

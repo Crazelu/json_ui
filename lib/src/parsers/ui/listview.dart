@@ -7,7 +7,11 @@ class JsonListView {
   JsonListView({required this.children});
 
   factory JsonListView.fromJson(Map<String, dynamic> json) {
-    return JsonListView(children: JsonUIUtils.getWidgets(json['children']));
+    return JsonListView(
+      children: JsonUIUtils.getWidgets(
+        json['children'],
+      ),
+    );
   }
 
   Widget toWidget() => ListView(children: children);

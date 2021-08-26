@@ -9,24 +9,30 @@ class JsonCircleAvatar {
   final Color? foregroundColor;
   final String? imageUrl;
 
-  JsonCircleAvatar(
-      {this.child,
-      this.radius: 10,
-      this.imageUrl,
-      this.backgroundColor: kPrimaryColorLight,
-      this.foregroundColor: kPrimaryColorLight});
+  JsonCircleAvatar({
+    this.child,
+    this.radius = 10,
+    this.imageUrl,
+    this.backgroundColor = kPrimaryColorLight,
+    this.foregroundColor = kPrimaryColorLight,
+  });
 
   factory JsonCircleAvatar.fromJson(Map<String, dynamic> json) {
     return JsonCircleAvatar(
-        radius: (json['radius'] ?? 10).toDouble(),
-        imageUrl: json['imageUrl'],
-        backgroundColor: Color(int.tryParse(json['backgroundColor'] ?? '') ??
-            kPrimaryColorLight.value),
-        foregroundColor: Color(int.tryParse(json['foregroundColor'] ?? '') ??
-            kPrimaryColorLight.value),
-        child: json['child'] == null
-            ? null
-            : JsonUIUtils.getWidgetFromJson(json['child']));
+      radius: (json['radius'] ?? 10).toDouble(),
+      imageUrl: json['imageUrl'],
+      backgroundColor: Color(int.tryParse(json['backgroundColor'] ?? '') ??
+          kPrimaryColorLight.value),
+      foregroundColor: Color(
+        int.tryParse(json['f,oregroundColor'] ?? '') ??
+            kPrimaryColorLight.value,
+      ),
+      child: json['child'] == null
+          ? null
+          : JsonUIUtils.getWidgetFromJson(
+              json['child'],
+            ),
+    );
   }
 
   Widget toWidget() => CircleAvatar(
