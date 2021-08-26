@@ -7,8 +7,12 @@ import 'package:json_ui/src/utils/method_channel.dart';
 class JsonUIDialog extends StatelessWidget {
   final JsonFlutterUI parsedJsonUI;
   final Size size;
-  const JsonUIDialog({Key? key, required this.parsedJsonUI, required this.size})
-      : super(key: key);
+
+  const JsonUIDialog({
+    Key? key,
+    required this.parsedJsonUI,
+    required this.size,
+  }) : super(key: key);
 
   void dismiss() {
     locator<JsonMethodChannel>().invokeMethod(kDismissPage);

@@ -4,10 +4,6 @@
     "dismissButtonColor": "0xffe30813",
     "shouldShowDismiss": true,
     "isFullScreen": true,
-    "size": {
-        "height": 400.0,
-        "width": 400.0
-    },
     "type": "listview",
     "children": [
         {

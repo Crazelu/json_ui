@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:json_ui/src/manager.dart';
 import 'package:json_ui/src/parsers/ui/json_flutter_ui.dart';
@@ -10,10 +11,14 @@ class NavigationService {
   }
 
   Object? push(JsonFlutterUI parsedJsonUI) async {
-    return await key.currentState?.push(PageRouteBuilder(
+    return await key.currentState?.push(
+      PageRouteBuilder(
         opaque: false,
-        pageBuilder: (context, primary, secondary) =>
-            JsonUIDialogManager(parsedJsonUI: parsedJsonUI)));
+        pageBuilder: (context, primary, secondary) => JsonUIDialogManager(
+          parsedJsonUI: parsedJsonUI,
+        ),
+      ),
+    );
   }
 
   void pop() {

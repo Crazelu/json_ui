@@ -43,12 +43,12 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void loadJson() async {
-    // String data =
-    //     await DefaultAssetBundle.of(context).loadString("assets/demo.json");
-    // _json = json.decode(data);
+    String data =
+        await DefaultAssetBundle.of(context).loadString("assets/netflix.json");
+    _json = json.decode(data);
     JsonUI.init(
-      url: "https://json-ui-server-crazelu.vercel.app/netflix",
-      // jsonData: _json,
+      // url: "https://json-ui-server-crazelu.vercel.app/netflix",
+      jsonData: _json,
       // context:context,
       navigationKey: navigationKey,
     );

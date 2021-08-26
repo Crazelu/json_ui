@@ -27,7 +27,7 @@ class JsonUIUtils {
   }
 
   static Widget getWidgetFromJson(Map<String, dynamic>? json) {
-    if (json == null) return Container();
+    if (json == null) return const SizedBox();
     switch (json['type']) {
       case 'image':
         return JsonImage.fromJson(json).toWidget();
@@ -61,7 +61,7 @@ class JsonUIUtils {
         return JsonContainer.fromJson(json).toWidget();
 
       default:
-        return Container();
+        return const SizedBox();
     }
   }
 }

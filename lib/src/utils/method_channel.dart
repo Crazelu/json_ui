@@ -12,7 +12,10 @@ class JsonMethodChannel {
   }
 
   ///invokes method associated with `methodName`
-  Future<Object?> invokeMethod(String? methodName, {ApiRequest? params}) async {
+  Future<Object?> invokeMethod(
+    String? methodName, {
+    ApiRequest? params,
+  }) async {
     switch (methodName) {
       case kMakeRequest:
         assert(params != null);
@@ -27,10 +30,14 @@ class JsonMethodChannel {
 
   ///Makes network request
   Future<Map<String, dynamic>?> _makeNetworkRequest(
-      ApiRequest requestParams) async {
+    ApiRequest requestParams,
+  ) async {
     return await locator<HttpService>().sendNetworkRequest(
-        requestParams.url, requestParams.type,
-        body: requestParams.body, headers: requestParams.headers);
+      requestParams.url,
+      requestParams.type,
+      body: requestParams.body,
+      headers: requestParams.headers,
+    );
   }
 
   //dismisses JsonUI page
